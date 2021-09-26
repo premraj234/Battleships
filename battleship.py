@@ -84,10 +84,10 @@ def createShip():
     createship=[]
     if edge == 0:
         for i in range(rows-1,rows+2):
-            tan.append([i,cols])
+            createship.append([i,cols])
     else:
         for j in range(cols-1,cols+2):
-            tan.append([j,rows])
+            createship.append([j,rows])
     return createship
 
 
