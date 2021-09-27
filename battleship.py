@@ -77,18 +77,18 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 
-# def createShip():
-#     rows=random.randint(1,8)
-#     cols=random.randint(1,8)
-#     edge=random.randint(0,1)
-#     tan=[]
-#     if edge == 0:
-#         for i in range(rows-1,rows+2):
-#             tan.append([i,cols])
-#     else:
-#         for j in range(cols-1,cols+2):
-#             tan.append([j,rows])
-#     return tan
+def createShip():
+    rows=random.randint(1,8)
+    cols=random.randint(1,8)
+    edge=random.randint(0,1)
+    createship=[]
+    if edge == 0:
+        for i in range(rows-1,rows+2):
+            createship.append([i,cols])
+    else:
+        for j in range(cols-1,cols+2):
+            createship.append([j,rows])
+    return createship
 
 
          
@@ -121,7 +121,15 @@ Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
-    return
+    ship_count=0
+    while ship_count!=numShips:
+            ship=createShip()
+            if checkShip(grid,ship):
+                for i in ship:
+                    grid[i[0]][i[1]] = SHIP_UNCLICKED
+                ship_count+=1
+    return grid
+    
 
 
 '''
@@ -300,7 +308,7 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    test.testCheckShip()
+    test.testAddShips()
 
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
