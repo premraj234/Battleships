@@ -28,7 +28,7 @@ def makeModel(data):
     data["no_of_rows"]=10
     data["no_of_cols"]=10
     data["boardsize"]=500
-    data["cellsize"]=data["boardsize"]/data["no-of-cols"]
+    data["cellsize"]=data["boardsize"]/data["no_of_cols"]
     data["no_of_ships_comp"]=5
     data["no_of_sips_user"]=5
     data["comp_board"]=emptyGrid(data["no_of_rows"],data["no_of_cols"])
@@ -43,6 +43,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
+    userCanvas=drawGrid(data,userCanvas,data["user_board"],True)
+    compCanvas=drawGrid(data,compCanvas,data["comp_board"],True)
     return
 
 
@@ -129,13 +131,13 @@ Returns: 2D list of ints
 def addShips(grid, numShips):
     ship_count=0
     while ship_count!=numShips:
-         ship=createShip()
-         if checkShip(grid,ship):
-             for i in ship:
-                 grid[i[0]][i[1]] = SHIP_UNCLICKED
-                 ship_count+=1 
-         return grid
-    return
+        ship=createShip()
+        if checkShip(grid,ship):
+            for i in ship:
+                grid[i[0]][i[1]] = SHIP_UNCLICKED
+            ship_count+=1 
+    return grid
+    
 
 
 '''
@@ -144,6 +146,14 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
+    for col in range(data["no_of_cols"]):
+        for row in range(data["no_of_rows"]):
+            if grid[col][row] == SHIP_UNCLICKED:
+                    canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1),data["cellsize"]*(row+1), fill="yellow")
+                    
+            else:
+                canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1),data["cellsize"]*(row+1), fill="blue")
+                    
     return
 
 
@@ -314,7 +324,7 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    # test.testCheckShip()
-      test.testMakeModel()
+    
+    #   test.testMakeModel()
     ## Finally, run the simulation to test it manually ##
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
