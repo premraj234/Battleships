@@ -83,6 +83,9 @@ def emptyGrid(rows, cols):
             
     return grid
 
+
+
+
 '''
 createShip()
 Parameters: no parameters
@@ -130,6 +133,7 @@ Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
+
     ship_count=0
     while ship_count!=numShips:
         ship=createShip()
@@ -137,6 +141,7 @@ def addShips(grid, numShips):
             for i in ship:
                 grid[i[0]][i[1]] = SHIP_UNCLICKED
             ship_count+=1 
+   
     return grid
     
 
@@ -326,7 +331,9 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    # test.testCheckShip()
-    # test.testMakeModel()
+
+    test.testAddShips()
+
+
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    #runSimulation(500, 500)
