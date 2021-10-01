@@ -34,6 +34,7 @@ def makeModel(data):
     data["comp_board"]=emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["user_board"]=emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["comp_board"]=addShips(data["comp_board"],data["no_of_ships_comp"])
+    data["temp_ship"]=[]
     return data
 
 
@@ -43,8 +44,9 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    userCanvas=drawGrid(data,userCanvas,data["user_board"],True)
-    compCanvas=drawGrid(data,compCanvas,data["comp_board"],True)
+    usercanvas=drawGrid(data,userCanvas,data["user_board"],True)
+    usership=drawShip(data,userCanvas,data["temp_ship"],True)
+    compcanavs=drawGrid(data,compCanvas,data["comp_board"],True)
     return
 
 
@@ -191,7 +193,11 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    return
+    x= int(event.x//data["cellsize"])
+    y = int(event.y//data["cellsize"])
+    return [y,x]
+   
+    
 
 
 '''
@@ -333,7 +339,7 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     # test.testIsVertical()
-    test.testIsHorizontal()
+    test.testGetClickedCell()
     #   test.testMakeModel()
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
