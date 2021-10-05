@@ -263,7 +263,7 @@ def clickUserBoard(data, row, col):
     if data["user_ship"] == 5:
         return
     
-    if data["temp_ship"] == [row,col]:
+    if [row,col] in data["temp_ship"]:
         return 
     data["temp_ship"].append([row,col])
 
