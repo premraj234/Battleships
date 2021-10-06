@@ -47,6 +47,7 @@ def makeView(data, userCanvas, compCanvas):
     usercanvas=drawGrid(data,userCanvas,data["user_board"],True)
     usership=drawShip(data,userCanvas,data["temp_ship"],True)
     compcanavs=drawGrid(data,compCanvas,data["comp_board"],True)
+
     return
 
 
@@ -148,9 +149,9 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    for col in range(data["no_of_cols"]):
-        for row in range(data["no_of_rows"]):
-            if grid[col][row] == SHIP_UNCLICKED:
+    for row in range(data["no_of_rows"]):
+        for col in range(data["no_of_cols"]):
+            if grid[row][col] == SHIP_UNCLICKED:
                 canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1),data["cellsize"]*(row+1), fill="yellow")
                     
             else:
