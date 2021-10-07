@@ -30,11 +30,12 @@ def makeModel(data):
     data["boardsize"]=500
     data["cellsize"]=data["boardsize"]/data["no_of_cols"]
     data["no_of_ships_comp"]=5
-    data["no_of_sips_user"]=5
+    data["no_of_ships_user"]=5
     data["comp_board"]=emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["user_board"]=emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["comp_board"]=addShips(data["comp_board"],data["no_of_ships_comp"])
-    data["temp_ship"]=test.testShip()
+    data["temp_ship"]=[ ]
+    data["user_ship"] = 0
     return data
 
 
@@ -66,6 +67,11 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    s = getClickedCell(data,event)
+    if board == "user":
+        clickUserBoard(data, s[0], s[1]) 
+
+
     pass
 
 #### WEEK 1 ####
@@ -194,8 +200,8 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    x= int(event.x//data["cellsize"])
-    y = int(event.y//data["cellsize"])
+    x= int(event.x/data["cellsize"])
+    y = int(event.y/data["cellsize"])
     return [y,x]
    
     
@@ -220,7 +226,10 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    return
+    if checkShip(grid,ship):
+        if isVertical(ship) or isHorizontal(ship):
+            return True
+    return False
 
 
 '''
@@ -229,7 +238,21 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
+    if shipIsValid (data["user_board"], data["temp_ship"]):
+        for i in data["temp_ship"]:
+            data["user_board"][i[0]][i[1]] = SHIP_UNCLICKED
+                # data["tempship"] += 1
+        data["user_ship"] += 1
+    else:
+        print("ship is not valid")
+    data["temp_ship"] = [ ]
+    
     return
+   
+        
+
+
+    
 
 
 '''
@@ -238,6 +261,18 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
+    if data["user_ship"] == 5:
+        return
+    
+    if [row,col] in data["temp_ship"]:
+        return 
+    data["temp_ship"].append([row,col])
+
+    if len(data["temp_ship"]) == 3:
+        placeShip(data)
+    if data["user_ship"] == 5:
+        print("you can start the game ")
+
     return
 
 
@@ -345,6 +380,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
     # test.testIsVertical()
     # test.testGetClickedCell()
-    #   test.testMakeModel()
+    # test.testShipIsValid()
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
