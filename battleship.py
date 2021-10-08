@@ -312,7 +312,6 @@ def updateBoard(data, board, row, col, player):
     board[row][col] = x 
     if isGameOver(board):
         data["winner"] = player
-
     return
 
 
