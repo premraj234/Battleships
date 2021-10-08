@@ -53,6 +53,7 @@ def makeView(data, userCanvas, compCanvas):
     compcanavs=drawGrid(data,compCanvas,data["comp_board"],False)
     drawGameOver(data,userCanvas)
 
+
     return
 
 
