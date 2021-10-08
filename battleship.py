@@ -36,6 +36,8 @@ def makeModel(data):
     data["comp_board"]=addShips(data["comp_board"],data["no_of_ships_comp"])
     data["temp_ship"]=[ ]
     data["user_ship"] = 0
+    data["max_no_turns"] = 50
+    data["current_no_turns"] = 0
     return data
 
 
@@ -342,7 +344,13 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col]== SHIP_UNCLICKED:
+                return False
+    return True 
+
+    
 
 
 '''
@@ -351,6 +359,16 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
+    if data["winner"] == "user":
+        canvas.create_text(300, 50, text="you won the game", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+    elif data["winner"] == "comp":
+        canvas.create_text(300, 50, text="you lost the game", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+    elif data["winner"] == "draw":
+        canvas.create_text(300, 50, text=" out of moves and it's a draw", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+        
     return
 
 
