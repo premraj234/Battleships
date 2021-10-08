@@ -62,7 +62,7 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    if(event):
+    if event.keycode == 13:
         makeModel(data)
     pass
 
