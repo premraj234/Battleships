@@ -50,8 +50,9 @@ Returns: None
 def makeView(data, userCanvas, compCanvas):
     usercanvas=drawGrid(data,userCanvas,data["user_board"],True)
     usership=drawShip(data,userCanvas,data["temp_ship"])
-    compcanavs=drawGrid(data,compCanvas,data["comp_board"],True)
+    compcanavs=drawGrid(data,compCanvas,data["comp_board"],False)
     drawGameOver(data,userCanvas)
+
     return
 
 
