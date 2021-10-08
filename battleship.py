@@ -36,6 +36,7 @@ def makeModel(data):
     data["comp_board"]=addShips(data["comp_board"],data["no_of_ships_comp"])
     data["temp_ship"]=[ ]
     data["user_ship"] = 0
+    data["winner"] = None
     return data
 
 
@@ -66,9 +67,13 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if data["winner"] != None:
+        return
     s = getClickedCell(data,event)
     if board == "user":
         clickUserBoard(data, s[0], s[1]) 
+    elif board == "comp":
+        runGameTurn(data, s[0], s[1])
 
 
     pass
@@ -310,7 +315,14 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col]== SHIP_UNCLICKED:
+                return False
+    return True 
+
+
+    
 
 
 '''
@@ -319,6 +331,16 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
+    if data["winner"] == "user":
+        canvas.create_text(300, 50, text="you won the game", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+    elif data["winner"] == "comp":
+        canvas.create_text(300, 50, text="you lost the game", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+    elif data["winner"] == "draw":
+        canvas.create_text(300, 50, text=" out of moves and it's a draw", fill="black", font=('Helvetica 18 bold'))
+        canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+
     return
 
 
