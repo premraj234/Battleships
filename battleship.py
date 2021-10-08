@@ -283,7 +283,18 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
+    x = board[row][col]
+    if x == SHIP_UNCLICKED:
+        x = SHIP_CLICKED
+    elif  x == EMPTY_UNCLICKED:
+            x  = EMPTY_CLICKED
+    board[row][col] = x 
+    if isGameOver(board):
+        data["winner"] = player
     return
+
+
+    
 
 
 '''
@@ -292,6 +303,18 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    if data["comp_board"][row][col] == SHIP_CLICKED or data["comp_board"][row][col] == EMPTY_CLICKED:
+        return
+    else:
+        updateBoard(data, data["comp_board"], row, col, "user")
+    x = getComputerGuess(data["user_board"])
+    updateBoard(data, data["user_board"], x[0], x[1], "comp")
+    data["current_no_turns"] +=1
+    if data["current_no_turns"] == data["max_no_turns"]:
+        data["winner"] = "draw"
+
+  
+
     return
 
 
@@ -301,7 +324,16 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
+    row=random.randint(0,9)
+    col=random.randint(0,9)
+    while board[row][col] == SHIP_CLICKED or board[row][col] == EMPTY_CLICKED:
+        row=random.randint(0,9)
+        col=random.randint(0,9)
+    if board[row][col] == EMPTY_UNCLICKED or board[row][col] ==  SHIP_UNCLICKED  : 
+        return [row, col]
+    
+
+    
 
 
 '''
