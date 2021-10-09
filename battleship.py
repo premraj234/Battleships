@@ -67,11 +67,13 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    if(event):
+    if event.keycode == 13:
         makeModel(data)
-    return 
+    pass
+
 
     
+
 
 
 '''
@@ -84,7 +86,8 @@ def mousePressed(data, event, board):
         return
     s = getClickedCell(data,event)
     if board == "user":
-        clickUserBoard(data, s[0], s[1]) 
+        clickUserBoard(data, s[0], s[1])
+
     elif board == "comp":
         runGameTurn(data, s[0], s[1])
 
@@ -315,6 +318,7 @@ def updateBoard(data, board, row, col, player):
     board[row][col] = x 
     if isGameOver(board):
         data["winner"] = player
+
     return
 
 
@@ -337,7 +341,7 @@ def runGameTurn(data, row, col):
     if data["current_no_turns"] == data["max_no_turns"]:
         data["winner"] = "draw"
 
-  
+    return
 
 
 
@@ -354,7 +358,11 @@ def getComputerGuess(board):
         col=random.randint(0,9)
     if board[row][col] == EMPTY_UNCLICKED or board[row][col] ==  SHIP_UNCLICKED  : 
         return [row, col]
-    
+
+     
+    return
+
+
 '''
 isGameOver(board)
 Parameters: 2D list of ints
@@ -366,6 +374,7 @@ def isGameOver(board):
             if board[row][col]== SHIP_UNCLICKED:
                 return False
     return True 
+
 
 
 '''
@@ -383,6 +392,7 @@ def drawGameOver(data, canvas):
     elif data["winner"] == "draw":
         canvas.create_text(300, 50, text=" out of moves and it's a draw", fill="black", font=('Helvetica 18 bold'))
         canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
+
 
     return
 
