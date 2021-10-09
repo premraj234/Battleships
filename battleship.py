@@ -39,7 +39,11 @@ def makeModel(data):
     data["winner"] = None
     data["max_no_turns"] = 50
     data["current_no_turns"] = 0
+
     return data
+ 
+
+
 
 
 '''
@@ -52,6 +56,7 @@ def makeView(data, userCanvas, compCanvas):
     usership=drawShip(data,userCanvas,data["temp_ship"])
     compcanavs=drawGrid(data,compCanvas,data["comp_board"],False)
     drawGameOver(data,userCanvas)
+
 
     return
 
@@ -67,20 +72,27 @@ def keyPressed(data, event):
     pass
 
 
+    
+
+
+
 '''
 mousePressed(data, event, board)
 Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if data["winner"] != None:
+        return
     s = getClickedCell(data,event)
     if board == "user":
         clickUserBoard(data, s[0], s[1])
+
     elif board == "comp":
         runGameTurn(data, s[0], s[1])
 
 
-    pass
+    
 
 #### WEEK 1 ####
 
@@ -310,6 +322,9 @@ def updateBoard(data, board, row, col, player):
     return
 
 
+    
+
+
 '''
 runGameTurn(data, row, col)
 Parameters: dict mapping strs to values ; int ; int
@@ -325,7 +340,9 @@ def runGameTurn(data, row, col):
     data["current_no_turns"] +=1
     if data["current_no_turns"] == data["max_no_turns"]:
         data["winner"] = "draw"
+
     return
+
 
 
 '''
@@ -341,6 +358,7 @@ def getComputerGuess(board):
         col=random.randint(0,9)
     if board[row][col] == EMPTY_UNCLICKED or board[row][col] ==  SHIP_UNCLICKED  : 
         return [row, col]
+
      
     return
 
@@ -436,6 +454,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
     # test.testIsVertical()
     # test.testGetClickedCell()
-    # test.testShipIsValid()
+    #  test.testGetComputerGuess()
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+     runSimulation(500, 500)
