@@ -40,6 +40,10 @@ def makeModel(data):
     data["max_no_turns"] = 50
     data["current_no_turns"] = 0
 
+    return data
+ 
+
+
 
 
 '''
@@ -83,8 +87,6 @@ def mousePressed(data, event, board):
         clickUserBoard(data, s[0], s[1]) 
     elif board == "comp":
         runGameTurn(data, s[0], s[1])
-    return 
-
 
 
     
@@ -381,7 +383,6 @@ def drawGameOver(data, canvas):
     elif data["winner"] == "draw":
         canvas.create_text(300, 50, text=" out of moves and it's a draw", fill="black", font=('Helvetica 18 bold'))
         canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
-
 
 
     return
