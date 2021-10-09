@@ -384,7 +384,6 @@ def drawGameOver(data, canvas):
         canvas.create_text(300, 50, text=" out of moves and it's a draw", fill="black", font=('Helvetica 18 bold'))
         canvas.create_text(300, 100, text="press enter to restart the game", fill="black", font=('Helvetica 18 bold'))
 
-
     return
 
 
