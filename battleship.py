@@ -316,6 +316,9 @@ def updateBoard(data, board, row, col, player):
     return
 
 
+    
+
+
 '''
 runGameTurn(data, row, col)
 Parameters: dict mapping strs to values ; int ; int
@@ -335,6 +338,7 @@ def runGameTurn(data, row, col):
   
 
 
+
 '''
 getComputerGuess(board)
 Parameters: 2D list of ints
@@ -349,8 +353,6 @@ def getComputerGuess(board):
     if board[row][col] == EMPTY_UNCLICKED or board[row][col] ==  SHIP_UNCLICKED  : 
         return [row, col]
     
-
-
 '''
 isGameOver(board)
 Parameters: 2D list of ints
